@@ -1,0 +1,9 @@
+{
+    "files.associations": {
+        "ostream": "cpp",
+        "cstdlib": "cpp",
+        "set": "cpp",
+        "xtree": "cpp",
+        "xutility": "cpp"
+    }
+}
