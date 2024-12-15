@@ -1,34 +1,42 @@
 #include<iostream>
 #include<vector>
+#include<queue>
+#include<map>
+#include<set>
 #include<algorithm>
+#include<tuple>
 using namespace std;
-vector<pair<long long, long long>>v;
 
 int main(){
-    long long t, n, k;
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL);
+    int t;
     cin >> t;
-    for(int i=0; i<t; i++){
-        cin >> n >> k;
-        vector<long long>v2(n);
-        bool t = false;
-        for(int j=0; j<n; j++){
-            long long a, b;
+    
+    while(t--){
+        map<int, int>m;
+        int n;
+        cin >> n;
+        for(int i=0; i<n; i++){
+            int a, b;
             cin >> a >> b;
-            v.push_back({a, b});
+            m[b] = max(m[b], a);
         }
-        sort(v.begin(), v.end());
-        for(int j=0; j<n; j++){
-            if(j==0){
-                v2[j] = v[j].second;
+        int ans = 0;
+        bool t = true;
+        for(int i=1;i<=10; i++){
+            if(m[i] != 0){
+                ans += m[i];
             }
-            else v2[j] = v[j].second+v2[j-1];
-            if(v2[j]>k*(v[j].first)){
-                cout << "No" << endl;
-                t = true;
+            else{
+                cout << "MOREPROBLEMS" << endl;
+                t = false;
                 break;
             }
         }
-        if(!t) cout << "Yes" << endl;
-        v.clear();
+        if(t){
+            cout << ans << endl;
+        }
+        m.clear();
     }
 }
