@@ -124,37 +124,20 @@ int main(){
     while(t--){
         int n;
         cin >> n;
-        // Union Find set up
         for (int i = 1; i <= n; i++) root[i] = i;
         for (int i = 1; i <= n; i++) sz[i] = 1;
 
         // Convex Hull input
-        vector<Point<long long>>v;
-        for(int i=0; i<n; i++){
-            int x, y;
-            cin >> x >> y;
-            Point <long long> p;
-            p.x = x;
-            p.y = y;
-            v.push_back(p);
-        }
-        vector<Point<long long>>hull = convexHull(v);
-
-        
-        // Sieve of Erasthotenes
-        int m = 1e6;
-        vector<bool> isPrime(m+1, true);
-        isPrime[0] = isPrime[1] = false;
-        vector<vector<int>> factors(m+1);
-        for (int i = 2; i <= m; i++) {
-            if (isPrime[i]) {
-                factors[i].push_back(i);
-                for (int j = i * 2; j <= m; j += i) {
-                    isPrime[j] = false;
-                    factors[j].push_back(i);
-                }
-            }
-        }
+        // vector<Point<long long>>v;
+        // for(int i=0; i<n; i++){
+        //     int x, y;
+        //     cin >> x >> y;
+        //     Point <long long> p;
+        //     p.x = x;
+        //     p.y = y;
+        //     v.push_back(p);
+        // }
+        // vector<Point<long long>>hull = convexHull(v);
 
         for(int i=0; i<n; i++){
             int a;
