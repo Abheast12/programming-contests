@@ -5,6 +5,8 @@
 #include<set>
 #include<algorithm>
 #include<tuple>
+#include<random>
+#include<numeric>
 using namespace std;
 #define all(x) begin(x), end(x)
 int seg[800800];
@@ -90,20 +92,41 @@ int query(int node, int left, int right, int x, int y, int (&seg)[800800]) {
     }
 }
 
-// dsu implementation
-int maxsz = 1;
-int root[100100], sz[100100];
+// Max Segment Tree implementation (no lazy propagation)
+struct Tree {
+	typedef int T;
+	static constexpr T unit = INT_MIN;
+	T f(T a, T b) { 
+        return max(a, b);
+    } // (any associative fn)
+	vector<T> s; int n;
+	Tree(int n = 0, T def = unit) : s(2*n, def), n(n) {}
+	void update(int pos, T val) {
+		for (s[pos += n] = val; pos /= 2;)
+			s[pos] = f(s[pos * 2], s[pos * 2 + 1]);
+	}
+	T query(int b, int e) { // query [b, e)
+		T ra = unit, rb = unit;
+		for (b += n, e += n; b < e; b /= 2, e /= 2) {
+			if (b % 2) ra = f(ra, s[b++]);
+			if (e % 2) rb = f(s[--e], rb);
+		}
+		return f(ra, rb);
+	}
+};
 
-int find(int x) {
+// dsu implementation
+long long maxsz = 1;
+int find(int x, vector<long long>&root) {
     while (x != root[x]) {
         if(root[x] != root[root[x]]) root[x] = root[root[x]];
         x = root[x];
     }
     return x;
 }
-void unite(int a, int b) {
-    int roota = find(a);
-    int rootb = find(b);
+void unite(int a, int b, vector<long long>&root, vector<long long>&sz) {
+    int roota = find(a, root);
+    int rootb = find(b, root);
     if (sz[roota] < sz[rootb]){
         sz[rootb]+=sz[roota];
         maxsz = max(maxsz, sz[rootb]);
@@ -112,9 +135,17 @@ void unite(int a, int b) {
         sz[roota] += sz[rootb];
         maxsz = max(maxsz, sz[roota]);
         root[rootb] = roota;
-    }
-    
+    } 
 }
+
+//random number generator in the range [mn, mx]
+long long getRandomInRange(long long mn, long long mx) {
+    std::random_device rd;
+    std::mt19937_64 gen(rd());
+    std::uniform_int_distribution<long long> dis(mn, mx);
+    return dis(gen);
+}
+
 int main(){
     ios_base::sync_with_stdio(false);
     cin.tie(NULL);
@@ -125,6 +156,7 @@ int main(){
         int n;
         cin >> n;
         // Union Find set up
+        vector<long long>root(n+1), sz(n+1);
         for (int i = 1; i <= n; i++) root[i] = i;
         for (int i = 1; i <= n; i++) sz[i] = 1;
 
