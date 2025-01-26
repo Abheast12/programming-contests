@@ -7,10 +7,12 @@
 #include<tuple>
 #include<random>
 #include<numeric>
+#include<string>
 #include<cmath>
+#define int long long
 using namespace std;  
 
-int main(){
+int32_t main(){
     int t;
     cin >> t;
     while(t--){
