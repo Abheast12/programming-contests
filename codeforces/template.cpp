@@ -12,6 +12,51 @@ using namespace std;
 int seg[800800];
 int arr[400400];
 
+// Binary Exponentiation
+long long bexp(long long bs, long long pw){
+    long long res = 1;
+    while(pw > 0){
+        if(pw%2 == 1){
+            res = (res*bs);
+        }
+        bs = (bs*bs);
+        pw >>= 1;
+    }
+    return res;
+}
+
+// String Hashing
+long long compute_hash(string const& s) {
+    const int p = 29;
+    const int m = 1e9 + 9;
+    long long hash_value = 0;
+    long long p_pow = 1;
+    for (char c : s) {
+        hash_value = (hash_value + (c - 'a' + 1) * p_pow) % m;
+        p_pow = (p_pow * p) % m;
+    }
+    return hash_value;
+}
+
+// Prefix Hashing (for substring hashing, modified hash calculation)
+vector<long long> compute_prefix_hash(string const& s) {
+    const int p = 29;
+    const int m = 1e9 + 9;
+    long long hash_value = 0;
+    vector<long long>hashes(s.length());
+    for (int i=0; i<s.length(); i++) {
+        if(i!=0){
+            hashes[i] = hashes[i-1]*p + (s[i] - '0' + 1);
+            hashes[i] %= m;
+        }
+        else{
+            hashes[i] = (s[i] - '0' + 1);
+            hashes[i] %= m;
+        }
+    }
+    return hashes;
+}
+
 // Convex Hull implementation
 template <class T> int sgn(T x) { return (x>0) - (x<0);}
 template <class T>
