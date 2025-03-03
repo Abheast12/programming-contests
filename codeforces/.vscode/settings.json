@@ -56,5 +56,6 @@
         "unordered_map": "cpp",
         "xhash": "cpp",
         "random": "cpp"
-    }
+    },
+    "C_Cpp.dimInactiveRegions": false
 }
