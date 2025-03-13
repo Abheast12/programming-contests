@@ -198,8 +198,8 @@ void unite(int a, int b, vector<long long>&root, vector<long long>&sz) {
 
 //random number generator in the range [mn, mx]
 long long getRandomInRange(long long mn, long long mx) {
-    std::random_device rd;
-    std::mt19937_64 gen(rd());
+    static std::random_device rd;
+    static std::mt19937_64 gen(rd());
     std::uniform_int_distribution<long long> dis(mn, mx);
     return dis(gen);
 }
