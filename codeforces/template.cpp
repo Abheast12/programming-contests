@@ -38,6 +38,20 @@ long long binmul(long long a, long long b, long long mod){
     return res;
 }
 
+// Calculate the modular inverse of a number given prime modulus
+long long modinv(long long x, long long m){
+    long long res = 1;
+    long long pow = m-2;
+    while(pow> 0){
+        if(pow%2){
+            res = (res*x)%m;
+        }
+        x = (x*x)%m;
+        pow=(pow>>1);
+    }
+    return res;
+}
+
 // String Hashing
 long long compute_hash(string const& s) {
     const int p = 29;

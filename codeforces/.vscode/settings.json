@@ -55,7 +55,15 @@
         "stack": "cpp",
         "unordered_map": "cpp",
         "xhash": "cpp",
-        "random": "cpp"
+        "random": "cpp",
+        "array": "cpp",
+        "*.tcc": "cpp",
+        "cstdarg": "cpp",
+        "cwctype": "cpp",
+        "functional": "cpp",
+        "memory_resource": "cpp",
+        "string_view": "cpp",
+        "numbers": "cpp"
     },
     "C_Cpp.dimInactiveRegions": false
 }
