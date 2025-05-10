@@ -4,6 +4,7 @@
         "iosfwd": "cpp",
         "xiosbase": "cpp",
         "unordered_map": "cpp",
-        "utility": "cpp"
+        "utility": "cpp",
+        "ostream": "cpp"
     }
 }

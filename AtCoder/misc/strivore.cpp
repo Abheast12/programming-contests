@@ -13,7 +13,26 @@
 using namespace std;  
 
 
-int modinv()
+
+// Binary Exponentiation
+long long binexp(long long bs, long long pw, long long mod = 1e9+7){
+    long long res = 1;
+    while(pw > 0){
+        if(pw%2 == 1){
+            res = (res*bs);
+            res%=mod;
+        }
+        bs = (bs*bs);
+        bs%=mod;
+        pw >>= 1;
+    }
+    return res;
+}
+
+// Calculate the modular inverse of a number given prime modulus
+long long modinv(long long x, long long m){
+    return binexp(x, m-2);
+}
 
 
 int32_t main(){
@@ -24,26 +43,27 @@ int32_t main(){
     cin >> n;
     cin >> s;
     int md = 1e9+7;
-    int gg = 1;
-    for(int i=0; i<n; i++){
-        gg*=26;
-        gg%=md;
+    int ans = 0;
+    int prev =1;
+    for(int i=0; i<=n; i++){
+        int tmp = 1;
+        int rm = binexp(26, n-i);
+        int rn = binexp(25, i);
+        if(i==0){
+            prev = 1;
+        }
+        else{
+            prev = prev*(i+s.length()-1);
+            prev%=md;
+            int inv = modinv(i, md);
+            prev = (prev*inv)%md;
+        }
+        tmp = (tmp*prev)%md;
+        tmp = (tmp*rm)%md;
+        tmp = (tmp*rn)%md;
+        ans = (ans+tmp)%md;
     }
-    int val1 = 1, val2 = 1, val3 = 1;
-    int tmp = 1;
-    for(int i=1; i<=s.length()+n; i++){
-        tmp*=i;
-        tmp%=md;
-        if(i == n){
-            val1 = tmp;
-        }
-        else if(i == s.length()){
-            val2 = tmp;
-        }
-        else if(i == s.length()+n){
-            val3 = tmp;
-        }
-    }
+    cout << ans << endl;
 
 
 }
