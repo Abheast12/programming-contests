@@ -37,6 +37,6 @@ int32_t main(){
                 inv += v[i+1];
             }
         }
-        cout << inv/2+1 << endl;
+        cout << inv/2+inv%2 << endl;
     }
 }
