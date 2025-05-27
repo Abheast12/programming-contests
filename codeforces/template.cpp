@@ -263,6 +263,19 @@ long long getRandomInRange(long long mn, long long mx) {
     return dis(gen);
 }
 
+// Find Eulerian path: path that visits every edge exactly once
+// Before running this function, need to ensure that graph has Eulerian path conditions:
+// 1) Exactly two vertices have odd degree or 2) All vertices have even degree.
+void getEulerianPath(int u, vector<int>&path, vector<set<int>>&adj){
+    while(!adj[u].empty()){
+        int v = *adj[u].begin();
+        adj[v].erase(u);
+        adj[u].erase(v);
+        getEulerianPath(v, path, adj);
+    }
+    path.push_back(u);
+}
+
 int main(){
     ios_base::sync_with_stdio(false);
     cin.tie(NULL);
