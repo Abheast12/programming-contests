@@ -1,6 +1,13 @@
 {
     "files.associations": {
         "algorithm": "cpp",
-        "vector": "cpp"
+        "vector": "cpp",
+        "utility": "cpp",
+        "map": "cpp",
+        "iostream": "cpp",
+        "xstring": "cpp",
+        "unordered_map": "cpp",
+        "queue": "cpp",
+        "xiosbase": "cpp"
     }
 }
